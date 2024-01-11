@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'dev.charon.discord.boot.BootTranslatorBot'
+        )
+    }
+}
+
+apply plugin: "java"
+apply plugin: "com.github.johnrengelman.shadow"
+
+group = 'dev.charon.discord'
+version = '1.0-SNAPSHOT'
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+tasks.withType(Test).configureEach {
+    jvmArgs('-Dfile.encoding=UTF-8')
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.dv8tion:JDA:5.0.0-beta.19'
+    implementation 'com.deepl.api:deepl-java:1.4.0'
+
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.guava:guava:33.0.0-jre'
+
+    implementation 'com.vdurmont:emoji-java:5.1.1'
+
+    implementation 'org.reflections:reflections:0.10.2'
+
+    implementation 'com.theokanning.openai-gpt3-java:service:0.18.2'
+    implementation 'com.google.cloud:google-cloud-translate:2.6.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+test {
+    useJUnitPlatform()
+}
