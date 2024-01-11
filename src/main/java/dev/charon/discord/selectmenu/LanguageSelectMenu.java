@@ -80,7 +80,6 @@ public class LanguageSelectMenu {
         }
 
         if (languages.size() > (page + 1) * 25) {
-            //   SelectOption copy = languageOptions.get(24);
             languageOptions.set(24, SelectOption.of("Next page", "next").withDescription("Current page: " + (page + 1)).withEmoji(Emoji.fromUnicode("➡️")));
         }
 

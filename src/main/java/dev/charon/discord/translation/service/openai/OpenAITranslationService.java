@@ -113,7 +113,6 @@ public class OpenAITranslationService implements TranslationService {
                 language -> {
                     String[] split = language.split(",");
                     languageList.add(new Language(split[0].trim(), split[1].trim(), split[2].trim()));
-                    System.out.println(split[0].trim() + " " + split[1].trim() + " " + split[2].trim());
                 }
         );
 
