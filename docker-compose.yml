@@ -1,0 +1,9 @@
+version: "3.2"
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./bot:/app/bot/
