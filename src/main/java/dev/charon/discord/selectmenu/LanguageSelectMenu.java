@@ -34,8 +34,10 @@ public class LanguageSelectMenu {
         stringSelectMenu.setMaxValues(3);
 
         switch (serviceType) {
-            case GOOGLE, OPENAI ->
+            case GOOGLE ->
                     stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getGoogleTranslationService().getLanguageOptions(), page));
+            case OPENAI ->
+                    stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getOpenAITranslationService().getLanguageOptions(), page));
             case MICROSOFT, DEEPL ->
                     stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getDeepLTranslationService().getLanguageOptions(), page));
         }
@@ -44,17 +46,22 @@ public class LanguageSelectMenu {
     }
 
     public StringSelectMenu openServiceSelectionMenu() {
+        List<SelectOption> options = Lists.newArrayList();
+
+        for (ServiceType type : ServiceType.values()) {
+            if (type.getSupportedLanguages() > 0) {
+                options.add(SelectOption
+                        .of(type.name() + " (" + type.getSupportedLanguages() + ")", type.name())
+                        .withDescription(type.getDescription())
+                        .withEmoji(Emoji.fromUnicode(type.getEmoji())));
+            }
+        }
+
         return StringSelectMenu.create("translate:service")
                 .setPlaceholder("Select the service to translate with")
                 .setMinValues(1)
                 .setMaxValues(1)
-                .addOptions(
-                        SelectOption.of("OpenAI (" + ServiceType.OPENAI.getSupportedLanguages() + ")", "OpenAI")
-                                .withDescription("OpenAI's GPT-3.5 (https://chat.openai.com)").withEmoji(Emoji.fromUnicode("🤖")),
-                        SelectOption.of("DeepL Translator (" + ServiceType.DEEPL.getSupportedLanguages() + ")", "deepL")
-                                .withDescription("https://www.deepl.com/translator").withEmoji(Emoji.fromUnicode("🌍")),
-                        SelectOption.of("Google Translator (" + ServiceType.GOOGLE.getSupportedLanguages() + ")", "google")
-                                .withDescription("https://translate.google.com/").withEmoji(Emoji.fromUnicode("\uD83C\uDF10"))).build();
+                .addOptions(options).build();
     }
 
     public List<SelectOption> getLanguageOptions(List<SelectOption> languages, int page) {
