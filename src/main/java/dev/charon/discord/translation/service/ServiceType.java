@@ -14,15 +14,25 @@ import java.util.List;
 @Getter
 public enum ServiceType {
 
-    GOOGLE(TranslatorBot.getInstance().getTranslationService().getGoogleTranslationService().getLanguageOptions().size()),
-    MICROSOFT(0), // not implemented yet
-    OPENAI(TranslatorBot.getInstance().getTranslationService().getGoogleTranslationService().getLanguageOptions().size()),
-    DEEPL(TranslatorBot.getInstance().getTranslationService().getDeepLTranslationService().getLanguageOptions().size());
+    GOOGLE(TranslatorBot.getInstance().getTranslationService().getGoogleTranslationService() != null ?
+            TranslatorBot.getInstance().getTranslationService().getGoogleTranslationService().getLanguageOptions().size() : 0,
+            "Google Translator (https://translate.google.com/)", "\uD83C\uDF10"),
+    MICROSOFT(0, "", ""), // not implemented yet
+    OPENAI(TranslatorBot.getInstance().getTranslationService().getOpenAITranslationService() != null ?
+            TranslatorBot.getInstance().getTranslationService().getOpenAITranslationService().getLanguageOptions().size() : 0,
+            "OpenAI's GPT-3.5 (https://chat.openai.com)", "🤖"),
+    DEEPL(TranslatorBot.getInstance().getTranslationService().getDeepLTranslationService() != null ?
+            TranslatorBot.getInstance().getTranslationService().getDeepLTranslationService().getLanguageOptions().size() : 0,
+            "DeepL's neural machine translation (https://www.deepl.com/translator)", "🌍");
 
     private final int supportedLanguages;
+    private final String description;
+    private final String emoji;
 
-    ServiceType(int supportedLanguages) {
+    ServiceType(int supportedLanguages, String description, String emoji) {
         this.supportedLanguages = supportedLanguages;
+        this.description = description;
+        this.emoji = emoji;
     }
 
     public static ServiceType fromString(String string) {
@@ -35,6 +45,11 @@ public enum ServiceType {
     }
 
     public static List<String> getServices() {
-        return List.of("Google", "OpenAI", "DeepL");
+        StringBuilder services = new StringBuilder();
+        for (ServiceType serviceType : values()) {
+            if (serviceType.getSupportedLanguages() > 0)
+                services.append(serviceType.name()).append(", ");
+        }
+        return List.of(services.substring(0, services.toString().length() - 2));
     }
 }

@@ -21,16 +21,22 @@ public class TranslationServiceProvider {
 
     private final BotConfiguration botConfiguration;
 
-    private final GoogleTranslationService googleTranslationService;
-    //private final MicrosoftTranslationService microsoftTranslationService; // not implemented yet
-    private final OpenAITranslationService openAITranslationService;
-    private final DeepLTranslationService deepLTranslationService;
+    private GoogleTranslationService googleTranslationService;
+    //private MicrosoftTranslationService microsoftTranslationService; // not implemented yet
+    private OpenAITranslationService openAITranslationService;
+    private DeepLTranslationService deepLTranslationService;
 
     public TranslationServiceProvider(BotConfiguration botConfiguration) {
         this.botConfiguration = botConfiguration;
 
-        this.googleTranslationService = new GoogleTranslationServiceProvider(botConfiguration.getGoogleAuthKey());
-        this.openAITranslationService = new OpenAITranslationServiceProvider(botConfiguration.getOpenAiAuthKey());
-        this.deepLTranslationService = new DeepLTranslationServiceProvider(botConfiguration.getDeepLAuthKey());
+        if (botConfiguration.getGoogleAuthKey() != null && !botConfiguration.getGoogleAuthKey().isEmpty()) {
+            this.googleTranslationService = new GoogleTranslationServiceProvider(botConfiguration.getGoogleAuthKey());
+        }
+        if (botConfiguration.getOpenAiAuthKey() != null && !botConfiguration.getOpenAiAuthKey().isEmpty()) {
+            this.openAITranslationService = new OpenAITranslationServiceProvider(botConfiguration.getOpenAiAuthKey());
+        }
+        if (botConfiguration.getDeepLAuthKey() != null && !botConfiguration.getDeepLAuthKey().isEmpty()) {
+            this.deepLTranslationService = new DeepLTranslationServiceProvider(botConfiguration.getDeepLAuthKey());
+        }
     }
 }
