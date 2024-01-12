@@ -85,7 +85,7 @@ public class UnicodeLoader {
             for (UnicodeService.Emoji emoji : UnicodeService.extractFlags()) {
                 String countryCode = getCountryCodeFromApi(emoji.getTitle().replace(" ", "%20"));
 
-                if (countryCode == null) {
+                if (countryCode == null || countryCode.equalsIgnoreCase("N/A")) {
                     continue;
                 }
                 if (!countryCode.equalsIgnoreCase("/A") && !unicodeProvider.getUnicode().containsKey(countryCode)) {

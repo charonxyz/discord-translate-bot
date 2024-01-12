@@ -34,12 +34,10 @@ public class LanguageSelectMenu {
         stringSelectMenu.setMaxValues(3);
 
         switch (serviceType) {
-            case GOOGLE ->
-                    stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getGoogleTranslationService().getLanguageOptions(), page));
-            case OPENAI ->
-                    stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getOpenAITranslationService().getLanguageOptions(), page));
-            case MICROSOFT, DEEPL ->
-                    stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getDeepLTranslationService().getLanguageOptions(), page));
+            case GOOGLE -> stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getGoogleTranslationService().getLanguageOptions(), page));
+            case OPENAI -> stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getOpenAITranslationService().getLanguageOptions(), page));
+            case MICROSOFT,
+                 DEEPL -> stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getDeepLTranslationService().getLanguageOptions(), page));
         }
 
         return stringSelectMenu.build();
@@ -75,12 +73,14 @@ public class LanguageSelectMenu {
             languageOptions.add(1, copy);
         } else if (page > 0) {
             SelectOption copy = languageOptions.get(0);
-            languageOptions.set(0, SelectOption.of("Previous page", "previous").withDescription("Current page: " + (page + 1)).withEmoji(Emoji.fromUnicode("⬅️")));
+            languageOptions.set(0, SelectOption.of("Previous page", "previous")
+                    .withDescription("Current page: " + (page + 1)).withEmoji(Emoji.fromUnicode("⬅️")));
             languageOptions.add(1, copy);
         }
 
         if (languages.size() > (page + 1) * 25) {
-            languageOptions.set(24, SelectOption.of("Next page", "next").withDescription("Current page: " + (page + 1)).withEmoji(Emoji.fromUnicode("➡️")));
+            languageOptions.set(24, SelectOption.of("Next page", "next")
+                    .withDescription("Current page: " + (page + 1)).withEmoji(Emoji.fromUnicode("➡️")));
         }
 
         return languageOptions.subList(0, Math.min(languageOptions.size(), 25));

@@ -43,6 +43,7 @@ public class DeepLTranslationService implements TranslationService {
     }
 
     private void loadLanguageOptions() {
+        // Need to add all languages manually because the API doesn't provide a way to get all languages by name with their language code
         languageCodes.put("German", LanguageCode.German);
         languageCodes.put("French", LanguageCode.French);
         languageCodes.put("Spanish",LanguageCode.Spanish);
@@ -106,12 +107,10 @@ public class DeepLTranslationService implements TranslationService {
         List<String> translatedTexts = Lists.newArrayList();
         for (String targetLanguage : targetLanguages) {
             translatedTexts.add(translate(text, sourceLanguage, targetLanguage));
-            System.out.println(targetLanguage);
         }
         StringBuilder stringBuilder = new StringBuilder();
         for (String translatedText : translatedTexts) {
             stringBuilder.append(translatedText).append("\n");
-            System.out.println(translatedText);
         }
         return stringBuilder.toString();
     }

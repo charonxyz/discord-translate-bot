@@ -197,7 +197,7 @@ public class SelectionInteractListener extends ListenerAdapter {
             translateMessages.remove(translateMessage);
             return true;
         }
-        if (!event.getGuild().getGuildChannelById(translateMessage.getChannelId()).getId().equals(translateMessage.getChannelId())) {
+        if (!Objects.requireNonNull(event.getGuild().getGuildChannelById(translateMessage.getChannelId())).getId().equals(translateMessage.getChannelId())) {
             event.editMessage("An error occurred while translating! (Channel ID is not the same with requested translation)").queue();
             translateMessages.remove(translateMessage);
             return true;

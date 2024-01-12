@@ -35,7 +35,6 @@ public class OpenAITranslationService implements TranslationService {
         this.openAiService = new OpenAiService(authKey);
 
         loadSupportedLanguages();
-
     }
 
     @Override
