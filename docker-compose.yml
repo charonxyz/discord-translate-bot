@@ -2,8 +2,6 @@ version: "3.2"
 
 services:
   bot:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: charonxyz/discord-translate-bot:latest
     volumes:
       - ./bot:/app/bot/
