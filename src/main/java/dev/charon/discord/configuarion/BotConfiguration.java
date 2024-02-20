@@ -20,11 +20,6 @@ public class BotConfiguration {
     private final String googleAuthKey;
     private final String microsoftAuthKey;
     private final String openAiAuthKey;
-    // Database configuration (not implemented yet)
-    private final String address;
-    private final int port;
-    private final String username;
-    private final String password;
-    private final String database;
+
 
 }
