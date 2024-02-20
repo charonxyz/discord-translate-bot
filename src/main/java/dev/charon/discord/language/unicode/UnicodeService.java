@@ -64,7 +64,7 @@ public class UnicodeService {
                     String emoji = jsonObject.getAsJsonPrimitive("emoji").getAsString();
                     String title = description.replace("flag:", "").trim();
                     emojis.add(new Emoji(emoji, title, emoji));
-                    System.out.println("Added " + title);
+                    //System.out.println("Added " + title);
                 }
             }
         }

@@ -72,15 +72,14 @@ public class DeepLTranslationService implements TranslationService {
         languageCodes.put("Portuguese-Brazilian", LanguageCode.PortugueseBrazilian);
         languageCodes.put("Portuguese-European", LanguageCode.PortugueseEuropean);
 
-        // Currently only 25 languages are available due to Discord's limit of 25 options per select menu -> Current Languages 27
-        // TODO: Find a other option to add more languages
+
         for (var languageCode : languageCodes.entrySet()) {
             String value = languageCode.getValue();
             if (value.startsWith("en-") || value.startsWith("pt-")) value = value.split("-")[1];
 
             String formattedCode = TranslatorBot.getInstance().getEmoji(value.toUpperCase());
             if (formattedCode == null) {
-                System.out.println("Emoji not found for language: " + value);
+                TranslatorBot.LOGGER.severe("Emoji not found for language: " + value);
                 continue;
             }
 

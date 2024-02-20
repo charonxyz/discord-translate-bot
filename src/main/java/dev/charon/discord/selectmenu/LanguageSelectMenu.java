@@ -37,7 +37,7 @@ public class LanguageSelectMenu {
             case GOOGLE -> stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getGoogleTranslationService().getLanguageOptions(), page));
             case OPENAI -> stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getOpenAITranslationService().getLanguageOptions(), page));
             case MICROSOFT,
-                 DEEPL -> stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getDeepLTranslationService().getLanguageOptions(), page));
+                 DEEPL -> stringSelectMenu.addOptions(getLanguageOptions(translationServiceProvider.getDeepLTranslationService().getLanguageOptions(), page)); // DEFAULT TO DEEPL -> Microsoft not implemented yet
         }
 
         return stringSelectMenu.build();
